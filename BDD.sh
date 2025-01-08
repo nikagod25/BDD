@@ -4,7 +4,13 @@
 ## Creado por Omar Prego aka "nika"
 ## Ayuda con IA para el script de bash
 
+#Ctrl+C
+trap ctrl_c SIGINT
 
+function ctrl_c(){
+    echo -e "\n\n [!] Saliendo...\n"
+}
+ 
 # Función para mostrar ayuda
 uso() {
     echo "Uso: $0 -i <IP> [-d <dominio>] [-p <puerto>] [-s <archivo_subdominios>]"
