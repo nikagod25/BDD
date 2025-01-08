@@ -84,7 +84,7 @@ if [ -n "$SUBDOMINIOS_FILE" ]; then
         dig @$IP -p $PUERTO $full_domain CNAME +short
     done < "$SUBDOMINIOS_FILE"
 else
-    echo "[-] Se omitió el escaneo de subdominios. Proporcione un archivo con -s."
+    echo "\n[-] Se omitió el escaneo de subdominios. Proporcione un archivo con -s.\n"
 fi
 
 # 4. Verificar soporte para DNSSEC
@@ -97,13 +97,13 @@ else
 fi
 
 # 5. Prueba de Cache Poisoning
-echo "\n [+] Probando vulnerabilidad de caché DNS (Cache Poisoning)..."
+echo -e "\n [+] Probando vulnerabilidad de caché DNS (Cache Poisoning)..."
 dig @$IP -p $PUERTO random.test A +short > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "\n [+] El servidor parece almacenar en caché dominios inexistentes. Esto podría indicar una vulnerabilidad."
+    echo -e "\n [+] El servidor parece almacenar en caché dominios inexistentes. Esto podría indicar una vulnerabilidad."
 else
-    echo "\n [-] No se detectaron problemas de caché evidentes."
+    echo -e "\n [-] No se detectaron problemas de caché evidentes."
 fi
 
-echo "\n\n ========== Pruebas de DNS completadas =========="
+echo -e "\n\n ========== Pruebas de DNS completadas =========="
 
