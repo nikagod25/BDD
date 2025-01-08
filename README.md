@@ -23,7 +23,7 @@ Este script realiza pruebas de penetración en servidores DNS para identificar p
 
 Instalación repositorio
 ```bash
-git clone https://github.com/nikagod25/BDD/tree/main
+git clone https://github.com/nikagod25/BDD
 ```
 
 Transferencia de zonas y consultas básicas
