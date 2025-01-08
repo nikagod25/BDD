@@ -18,7 +18,7 @@ Ejecuta estas consultas:
 # REQUISITOS: 
 
 Herramientas necesarias : dig y nc (netcat)
-Wordlist con subdominios. Posibilidad de utilizar sin wordlist pero no aseguro ningun resultado.
+Wordlist con subdominios.
 
 # Instalación: 
 - git clone https://github.com/nikagod25/BDD
