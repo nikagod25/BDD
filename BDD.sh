@@ -7,7 +7,7 @@
 #Ctrl+C
 trap ctrl_c SIGINT
 
-function ctrl_c(){
+uso ctrl_c(){
     echo -e "\n\n [!] Saliendo...\n"
 }
  
