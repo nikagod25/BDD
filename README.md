@@ -20,7 +20,7 @@ Ejecuta estas consultas:
 Herramientas necesarias : dig y nc (netcat)
 Wordlist con subdominios. Posibilidad de utilizar sin wordlist pero no aseguro ningun resultado.
 
-Instalación: 
+# Instalación: 
 - git clone https://github.com/nikagod25/BDD
 
 Guia de usos: 
