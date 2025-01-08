@@ -42,24 +42,24 @@ if [ -z "$IP" ] || [ -z "$DOMINIO" ]; then
 fi
 
 echo "========== Iniciando pruebas de DNS =========="
-echo "[+] IP objetivo: $IP"
-echo "[+] Dominio: $DOMINIO"
+echo -e \n"[+] IP objetivo: $IP"
+echo -e \n"[+] Dominio: $DOMINIO"
 if [ -n "$SUBDOMINIOS_FILE" ]; then
     echo "[+] Archivo de subdominios: $SUBDOMINIOS_FILE"
 fi
 echo "[+] Puerto: $PUERTO"
 
 # 1. Comprobar consultas recursivas
-echo "[+] Verificando consultas recursivas..."
+echo -e \n"[+] Verificando consultas recursivas..."
 dig @$IP -p $PUERTO google.com A +short > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "[+] El servidor permite consultas recursivas. Esto podría ser explotado para ataques de amplificación."
 else
-    echo "[-] El servidor no permite consultas recursivas."
+    echo -e \n"[-] El servidor no permite consultas recursivas."
 fi
 
 # 2. Transferencia de zonas (AXFR)
-echo "[+] Intentando transferencia de zona en $DOMINIO..."
+echo -e \n"[+] Intentando transferencia de zona en $DOMINIO..."
 AXFR_RESULT=$(dig @$IP -p $PUERTO $DOMINIO AXFR)
 if echo "$AXFR_RESULT" | grep -q "Transfer failed"; then
     echo "[-] La transferencia de zona falló. El servidor no permite AXFR."
@@ -70,7 +70,7 @@ fi
 
 # 3. Escaneo de subdominios
 if [ -n "$SUBDOMINIOS_FILE" ]; then
-    echo "[+] Escaneando subdominios listados en $SUBDOMINIOS_FILE..."
+    echo -e \n"[+] Escaneando subdominios listados en $SUBDOMINIOS_FILE..."
     while IFS= read -r subdomain; do
         full_domain="${subdomain}.${DOMINIO}"
         echo "[+] Probando subdominio: $full_domain"
@@ -82,22 +82,22 @@ else
 fi
 
 # 4. Verificar soporte para DNSSEC
-echo "[+] Verificando soporte para DNSSEC..."
+echo -e \n"[+] Verificando soporte para DNSSEC..."
 DNSSEC_SUPPORT=$(dig @$IP -p $PUERTO dnssec-failed.org A +dnssec 2>/dev/null)
 if [[ "$DNSSEC_SUPPORT" == *"SERVFAIL"* ]]; then
-    echo "[-] El servidor no soporta DNSSEC."
+    echo \n"[-] El servidor no soporta DNSSEC."
 else
-    echo "[+] El servidor soporta DNSSEC."
+    echo \n"[+] El servidor soporta DNSSEC."
 fi
 
 # 5. Prueba de Cache Poisoning
-echo "[+] Probando vulnerabilidad de caché DNS (Cache Poisoning)..."
+echo \n"[+] Probando vulnerabilidad de caché DNS (Cache Poisoning)..."
 dig @$IP -p $PUERTO random.test A +short > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "[+] El servidor parece almacenar en caché dominios inexistentes. Esto podría indicar una vulnerabilidad."
+    echo \n"[+] El servidor parece almacenar en caché dominios inexistentes. Esto podría indicar una vulnerabilidad."
 else
-    echo "[-] No se detectaron problemas de caché evidentes."
+    echo \n"[-] No se detectaron problemas de caché evidentes."
 fi
 
-echo "========== Pruebas de DNS completadas =========="
+echo \n\n"========== Pruebas de DNS completadas =========="
 
