@@ -17,13 +17,14 @@ grayColour="\e[0;37m\033[1m"
 
 
 
+ctrl_c(){
+    echo -e "${redcolour}\n\n [!] Saliendo...\n${endColour}"
+    exit 1
+}
 
 #Ctrl+C
 trap ctrl_c SIGINT
 
-ctrl_c(){
-    echo -e "${redcolour}\n\n [!] Saliendo...\n${endColour}"
-}
  
 # Función para mostrar ayuda
 uso() {
