@@ -18,7 +18,7 @@ grayColour="\e[0;37m\033[1m"
 
 
 ctrl_c(){
-    echo -e "${redcolour}\n\n [!] Saliendo...\n${endColour}"
+    echo -e "\n\n${redcolour}\n\n [!] Saliendo...\n${endColour}\n"
     exit 1
 }
 
